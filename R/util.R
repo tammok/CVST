@@ -67,13 +67,14 @@ constructLearner = function(learn, predict) {
   return(learner)
 }
 
-constructCVSTModel = function(steps=10, beta=.1, alpha=.01, similaritySignificance=.05, earlyStoppingSignificance=.05, earlyStoppingWindow=3) {
+constructCVSTModel = function(steps=10, beta=.1, alpha=.01, similaritySignificance=.05, earlyStoppingSignificance=.05, earlyStoppingWindow=3, regressionSimilarityViaOutliers=FALSE) {
   ret = list(steps=steps,
     beta=beta,
     alpha=alpha,
     similaritySignificance=similaritySignificance,
     earlyStoppingSignificance=earlyStoppingSignificance,
-    earlyStoppingWindow=earlyStoppingWindow)
+    earlyStoppingWindow=earlyStoppingWindow,
+    regressionSimilarityViaOutliers=regressionSimilarityViaOutliers)
   class(ret) = "CVST.setup"
   return(ret)
 }
@@ -89,7 +90,7 @@ constructParams = function(...) {
 }
 
 
-.getResult = function(train, test, learner, param) {
+.getResult = function(train, test, learner, param, squared=TRUE) {
   stopifnot(class(learner) == "CVST.learner" && class(train) == "CVST.data" && class(test) == "CVST.data")
   model = try(learner$learn(train, param))
   if (class(model) == "try-error") {
@@ -105,7 +106,12 @@ constructParams = function(...) {
     res = (test$y != pred)
   }
   else {
-    res = (pred - test$y)^2
+    if (squared) {
+      res = (pred - test$y)^2
+    }
+    else {
+      res = (pred - test$y)
+    }
   }
   return(res)
 }

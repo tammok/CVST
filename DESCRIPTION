@@ -1,8 +1,8 @@
 Package: CVST
 Type: Package
 Title: Fast Cross-Validation via Sequential Testing
-Version: 0.1
-Date: 2012-11-07
+Version: 0.2
+Date: 2013-03-25
 Depends: kernlab,Matrix
 Author: Tammo Krueger, Mikio Braun
 Maintainer: Tammo Krueger <t.krueger@tu-berlin.de>

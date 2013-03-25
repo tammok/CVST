@@ -9,7 +9,9 @@
   necessary parameters for a CVST run.
 }
 \usage{
-constructCVSTModel(steps = 10, beta = 0.1, alpha = 0.01, similaritySignificance = 0.05, earlyStoppingSignificance = 0.05, earlyStoppingWindow = 3)
+constructCVSTModel(steps = 10, beta = 0.1, alpha = 0.01,
+similaritySignificance = 0.05, earlyStoppingSignificance = 0.05,
+earlyStoppingWindow = 3, regressionSimilarityViaOutliers = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -30,6 +32,10 @@ constructCVSTModel(steps = 10, beta = 0.1, alpha = 0.01, similaritySignificance 
 }
   \item{earlyStoppingWindow}{
     Size of the early stopping window.
+}
+  \item{regressionSimilarityViaOutliers}{
+    should the less strict outlier-based similarity measure for
+    regression tasks be used.
 }
 }
 \value{

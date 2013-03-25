@@ -47,6 +47,7 @@ fastCV = function(train, learner, params, setup, test=NULL, verbose=TRUE) {
             class(params) == "CVST.params" && class(setup) == "CVST.setup" &&
             (is.null(test) || class(test) == "CVST.data"))
   isClassificationTask = isClassification(train)
+  regressionSimilarityViaOutliers = setup$regressionSimilarityViaOutliers
   earlyStopping = setup$earlyStoppingSignificance
   similarity = setup$similaritySignificance
   # use nested modeling, i.e. we start with the first minimalModel number of
@@ -82,10 +83,24 @@ fastCV = function(train, learner, params, setup, test=NULL, verbose=TRUE) {
   
   for (ind in 1:length(N)) {
     n = N[ind]
-    err = .calculateErrors(train, test, n, learner, params, skipCalculation)
+    if (!isClassificationTask && regressionSimilarityViaOutliers) {
+      err = .calculateErrors(train, test, n, learner, params, skipCalculation, squared=FALSE)
+      success[, ind] = apply(err^2, 1, mean)
+    }
+    else {
+      err = .calculateErrors(train, test, n, learner, params, skipCalculation)
+      success[, ind] = apply(err, 1, mean)
+    }
+    
     success[, ind] = apply(err, 1, mean)
     indByError = sort.list(success[, ind], decreasing=FALSE, na.last=TRUE)
     traces[indByError[1], ind] = 1
+    sortedErrors = t(err[indByError, ])
+    if (!isClassificationTask && regressionSimilarityViaOutliers) {
+      s = apply(sortedErrors, 2, sd)
+      sortedErrors = t(abs(t(sortedErrors)) > s * qnorm(1 - (similarity / 2)))
+    }
+    adjustedSignificance = similarity / (configurationsLeft - 1)
     for (k in 2:length(indByError)) {
       if (is.na(success[indByError[k], ind])) {
         # we either have an unsufficient model, which gives us NA as result...
@@ -93,13 +108,17 @@ fastCV = function(train, learner, params, setup, test=NULL, verbose=TRUE) {
         break
       }
       if (isClassificationTask) {
-        pvalue = cochranq.test(t(err[indByError[1:k], ]))$p.value
+        pvalue = cochranq.test(sortedErrors[, 1:k])$p.value
       }
       else {
-        pvalue = friedman.test(t(err[indByError[1:k], ]))$p.value
+        if (regressionSimilarityViaOutliers) {
+          pvalue = cochranq.test(sortedErrors[, 1:k])$p.value
+        }
+        else {
+          pvalue = friedman.test(sortedErrors[, 1:k])$p.value
+        }
       }
-      if (!is.nan(pvalue) && pvalue <= (similarity / configurationsLeft)) {
-      #if (!is.nan(pvalue) && pvalue <= (similarity)) {
+      if (!is.nan(pvalue) && pvalue <= adjustedSignificance) {
         break
       }
       traces[indByError[k], ind] = 1
@@ -161,7 +180,7 @@ fastCV = function(train, learner, params, setup, test=NULL, verbose=TRUE) {
 # with configuration i labeled point j of the testdata
 # correctly or not. skipCalculation controls, which confguration should be
 # skipped. A NA in the returned matrix corresponds to skipped configuration.
-.calculateErrors = function(traindata, testdata, N, learner, params, skipCalculation) {
+.calculateErrors = function(traindata, testdata, N, learner, params, skipCalculation, squared=TRUE) {
   nestModel = TRUE
   nPars = length(params)
 
@@ -186,7 +205,7 @@ fastCV = function(train, learner, params, setup, test=NULL, verbose=TRUE) {
     if (!is.null(skipCalculation) && skipCalculation[ind]) {
       next
     }
-    results[ind, ] = as.vector(.getResult(curTrain, testdata, learner, param))
+    results[ind, ] = as.vector(.getResult(curTrain, testdata, learner, param, squared=squared))
   }
   return(results)
 }
