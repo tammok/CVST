@@ -3,7 +3,7 @@ constructSVRLearner = function() {
     require(kernlab)
     stopifnot(isRegression(data))
     kpar=params[setdiff(names(params), c("kernel", "nu", "C"))]
-    return(ksvm(data$x, data$y, kernel=params$kernel, kpar=kpar, type="nu-svr", nu=params$nu, C=params$C, scale=FALSE))
+    return(ksvm(data$x, data$y, kernel=params$kernel, kpar=kpar, type="nu-svr", nu=params$nu, C=params$C / getN(data), scale=FALSE))
   }
   
   predict.svr = function(model, newData) {
@@ -39,7 +39,7 @@ constructKlogRegLearner = function() {
     y = (data$y != levels(data$y)[1]) + 0
     kpar = params[setdiff(names(params), c("kernel", "lambda", "tol", "maxiter"))]
     kernel = do.call(params$kernel, kpar)
-    model = .klogreg(data$x, kernel, y, params$lambda, params$tol, params$maxiter)
+    model = .klogreg(data$x, kernel, y, getN(data) * params$lambda, params$tol, params$maxiter)
     model$yLevels = levels(data$y)
     return(model)
   }
@@ -59,7 +59,7 @@ constructKRRLearner = function() {
     stopifnot(isRegression(data))
     kpar = params[setdiff(names(params), c("kernel", "lambda"))]
     kernel = do.call(params$kernel, kpar)
-    return(.krr(data$x, kernel, data$y, params$lambda))
+    return(.krr(data$x, kernel, data$y, getN(data) * params$lambda))
   }
   
   predict.krr = function(model, newData) {

@@ -45,6 +45,9 @@ constructSVRLearner()
   parameters to construct the kernel. Both methods expect a lambda
   parameter and KLR additonally a tol and maxiter parameter in the
   parameter list.
+
+  Note that the lambda of KRR/KLR and the C parameter of SVR are scaled
+  by the data set size to allow for comparable results in the fast CV loop.
 }
 \value{
   Returns a learner of type \code{CVST.learner} suitable for \code{\link{CV}} and \code{\link{fastCV}}.
@@ -78,21 +81,21 @@ pred = svm$predict(m, nsTest)
 sum(pred != nsTest$y) / getN(nsTest)
 # Kernel logistic regression
 klr = constructKlogRegLearner()
-p = list(kernel="rbfdot", sigma=100, lambda=.1, tol=10e-6, maxiter=100)
+p = list(kernel="rbfdot", sigma=100, lambda=.1/getN(ns), tol=10e-6, maxiter=100)
 m = klr$learn(ns, p)
 pred = klr$predict(m, nsTest)
 sum(pred != nsTest$y) / getN(nsTest)
 # SVR
 ns = noisySinc(100)
 svr = constructSVRLearner()
-p = list(kernel="rbfdot", sigma=100, nu=.1, C=1)
+p = list(kernel="rbfdot", sigma=100, nu=.1, C=1*getN(ns))
 m = svr$learn(ns, p)
 nsTest = noisySinc(1000)
 pred = svr$predict(m, nsTest)
 sum((pred - nsTest$y)^2) / getN(nsTest)
 # Kernel ridge regression
 krr = constructKRRLearner()
-p = list(kernel="rbfdot", sigma=100, lambda=.1)
+p = list(kernel="rbfdot", sigma=100, lambda=.1/getN(ns))
 m = krr$learn(ns, p)
 pred = krr$predict(m, nsTest)
 sum((pred - nsTest$y)^2) / getN(nsTest)

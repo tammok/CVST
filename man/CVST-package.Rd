@@ -24,8 +24,8 @@ Fast Cross-Validation via Sequential Testing
 \tabular{ll}{
 Package: \tab CVST\cr
 Type: \tab Package\cr
-Version: \tab 0.1\cr
-Date: \tab 2012-11-07\cr
+Version: \tab 0.2\cr
+Date: \tab 2013-03-25\cr
 License: \tab GPL (>=2.0)\cr
 }
 }
@@ -52,6 +52,11 @@ Wiley, 1947.
 W. G. Cochran.
 The comparison of percentages in matched samples.
 \emph{Biometrika}, 37 (3-4):256--266, 1950.
+
+M. Friedman.
+The use of ranks to avoid the assumption of normality implicit in the analysis of variance.
+\emph{Journal of the American Statistical Association}, 32 (200):675--701, 1937.
+
 }
 \keyword{ package }
 \examples{

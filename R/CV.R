@@ -98,8 +98,8 @@ fastCV = function(train, learner, params, setup, test=NULL, verbose=TRUE) {
       else {
         pvalue = friedman.test(t(err[indByError[1:k], ]))$p.value
       }
-      #if (!is.nan(pvalue) && pvalue <= (similarity / configurationsLeft)) {
-      if (!is.nan(pvalue) && pvalue <= (similarity)) {
+      if (!is.nan(pvalue) && pvalue <= (similarity / configurationsLeft)) {
+      #if (!is.nan(pvalue) && pvalue <= (similarity)) {
         break
       }
       traces[indByError[k], ind] = 1
