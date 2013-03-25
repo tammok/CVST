@@ -34,7 +34,7 @@ earlyStoppingWindow = 3, regressionSimilarityViaOutliers = FALSE)
     Size of the early stopping window.
 }
   \item{regressionSimilarityViaOutliers}{
-    should the less strict outlier-based similarity measure for
+    Should the less strict outlier-based similarity measure for
     regression tasks be used.
 }
 }
