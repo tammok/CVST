@@ -43,7 +43,7 @@ A survey of cross-validation procedures for model selection.
 }
 
 \author{
-Tammo Krueger <t.krueger@tu-berlin.de>
+Tammo Krueger <tammokrueger@googlemail.com>
 }
 
 \seealso{

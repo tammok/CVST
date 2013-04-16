@@ -47,7 +47,7 @@ Ideal spatial adaptation by wavelet shrinkage.
 \emph{Biometrika}, 81 (3) 425--455, 1994.
 }
 \author{
-Tammo Krueger <t.krueger@tu-berlin.de>
+Tammo Krueger <tammokrueger@googlemail.com>
 }
 
 \seealso{

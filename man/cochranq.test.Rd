@@ -35,7 +35,7 @@ Note on the {Cochran Q} test.
 \emph{Journal of the American Statistical Association}, 65 (329):155--160, 1970.
 }
 \author{
-Tammo Krueger <t.krueger@tu-berlin.de>
+Tammo Krueger <tammokrueger@googlemail.com>
 }
 
 \examples{

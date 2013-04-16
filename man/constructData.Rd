@@ -48,7 +48,7 @@ isRegression(data)
   randomly shuffled instance of the data.
 }
 \author{
-Tammo Krueger <t.krueger@tu-berlin.de>
+Tammo Krueger <tammokrueger@googlemail.com>
 }
 \examples{
 nsine = noisySine(10)

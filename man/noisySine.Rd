@@ -40,7 +40,7 @@ Fast cross-validation via sequential testing.
 URL \url{http://arxiv.org/abs/1206.2248}.
 }
 \author{
-Tammo Krueger <t.krueger@tu-berlin.de>
+Tammo Krueger <tammokrueger@googlemail.com>
 }
 
 \seealso{

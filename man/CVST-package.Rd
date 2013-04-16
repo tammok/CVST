@@ -31,7 +31,7 @@ License: \tab GPL (>=2.0)\cr
 }
 \author{Tammo Krueger, Mikio Braun
 
-Maintainer: Tammo Krueger <t.krueger@tu-berlin.de>
+Maintainer: Tammo Krueger <tammokrueger@googlemail.com>
 }
 \references{
 Tammo Krueger, Danny Panknin, and Mikio Braun.

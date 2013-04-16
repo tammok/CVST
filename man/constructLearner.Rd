@@ -63,7 +63,7 @@ constructSVRLearner()
   In \emph{Proceedings of the 23rd DAGM-Symposium on Pattern Recognition}, pages 246--253, 2001.
 }
 \author{
-  Tammo Krueger <t.krueger@tu-berlin.de>
+  Tammo Krueger <tammokrueger@googlemail.com>
 }
 
 \seealso{
