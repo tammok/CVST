@@ -3,7 +3,7 @@ CVST
 
 Fast Cross-Validation via Sequential Testing
 
-The package CVST is also hosted on CRAN, so
+The package CVST is hosted on CRAN, so
 
     install.packages("CVST")
     library(CVST)
