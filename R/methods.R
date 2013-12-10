@@ -1,6 +1,6 @@
 constructSVRLearner = function() {
   learn.svr = function(data, params) {
-    require(kernlab)
+    #require(kernlab)
     stopifnot(isRegression(data))
     kpar=params[setdiff(names(params), c("kernel", "nu", "C"))]
     return(ksvm(data$x, data$y, kernel=params$kernel, kpar=kpar, type="nu-svr", nu=params$nu, C=params$C / getN(data), scale=FALSE))
@@ -15,7 +15,7 @@ constructSVRLearner = function() {
 
 constructSVMLearner = function() {
   learn.svm = function(data, params) {
-    require(kernlab)
+    #require(kernlab)
     stopifnot(isClassification(data))    
     kpar=params[setdiff(names(params), c("kernel", "nu"))]
     return(ksvm(data$x, data$y, kernel=params$kernel, kpar=kpar, type="nu-svc", nu=params$nu, scale=FALSE))
@@ -30,7 +30,7 @@ constructSVMLearner = function() {
 
 constructKlogRegLearner = function() {
   learn.klogreg = function(data, params) {
-    require(kernlab)
+    #require(kernlab)
     stopifnot(isClassification(data))    
     # convert the factor to numeric 0/1
     if (nlevels(data$y) > 2) {
@@ -55,7 +55,7 @@ constructKlogRegLearner = function() {
 
 constructKRRLearner = function() {
   learn.krr = function(data, params) {
-    require(kernlab)
+    #require(kernlab)
     stopifnot(isRegression(data))
     kpar = params[setdiff(names(params), c("kernel", "lambda"))]
     kernel = do.call(params$kernel, kpar)
@@ -70,8 +70,8 @@ constructKRRLearner = function() {
 }
 
 .krr = function(data, kernel, y, lambda) {
-  require(kernlab)
-  require(Matrix)
+  #require(kernlab)
+  #require(Matrix)
   K = kernelMatrix(kernel, data)
   N = nrow(K)
   alpha = solve(Matrix(K + diag(lambda, N))) %*% y
@@ -79,15 +79,15 @@ constructKRRLearner = function() {
 }
 
 .krr.predict = function(newData, krr) {
-  require(kernlab)
+  #require(kernlab)
   k = kernelMatrix(krr$kernel, newData, krr$data)
   return(k %*% krr$alpha)
 }
 
 .klogreg = function(data, kernel, labels, lambda, tol, maxiter) {
   # labels should be 0/1
-  require(kernlab)
-  require(Matrix)
+  #require(kernlab)
+  #require(Matrix)
   K = Matrix(kernelMatrix(kernel, data)@.Data)
   N = nrow(K)
   alpha = rep(1/N, N)
@@ -120,7 +120,7 @@ constructKRRLearner = function() {
 }
 
 .klogreg.predict = function(klogreg, newData) {
-  require(kernlab)
+  #require(kernlab)
   K = kernelMult(klogreg$kernel, newData, klogreg$data, klogreg$alpha)
   pi = 1 / (1 + exp(-as.vector(K)))
   return((pi >= .5) + 0)
