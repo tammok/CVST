@@ -45,15 +45,9 @@ fastCV(train, learner, params, setup, test = NULL, verbose = TRUE)
 }
 \references{
 Tammo Krueger, Danny Panknin, and Mikio Braun.
-Fast cross-validation via sequential analysis.
-\emph{Neural Information Processing Systems (NIPS), Big Learning
-  Workshop}, 2011.
-URL \url{http://biglearn.org/2011/index.php/Papers\#paper2}.
-  
-Tammo Krueger, Danny Panknin, and Mikio Braun.
 Fast cross-validation via sequential testing.
-\emph{CoRR}, abs/1206.2248, 2012.
-URL \url{http://arxiv.org/abs/1206.2248}.
+Journal of Machine Learning Research 16 (2015) 1103-1155.
+URL \url{http://jmlr.org/papers/volume16/krueger15a/krueger15a.pdf}.
 }
 \author{
 Tammo Krueger <tammokrueger@googlemail.com>
