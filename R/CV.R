@@ -1,7 +1,7 @@
 CV = function(data, learner, params, fold=5, verbose=TRUE) {
-  stopifnot(class(learner) == "CVST.learner" &&
-            class(data) == "CVST.data" &&
-            class(params) == "CVST.params")
+  stopifnot(inherits(learner, "CVST.learner") &&
+            inherits(data, "CVST.data") &&
+            inherits(params, "CVST.params"))
   nParams = length(params)
   dimnames = list(as.character(1:fold), names(params))
 
@@ -43,9 +43,9 @@ CV = function(data, learner, params, fold=5, verbose=TRUE) {
 # test: either the test data for fixed test error setting or NULL, if
 # the adjusted test error setting should be used
 fastCV = function(train, learner, params, setup, test=NULL, verbose=TRUE) {
-  stopifnot(class(learner) == "CVST.learner" && class(train) == "CVST.data" &&
-            class(params) == "CVST.params" && class(setup) == "CVST.setup" &&
-            (is.null(test) || class(test) == "CVST.data"))
+  stopifnot(inherits(learner, "CVST.learner") && inherits(train, "CVST.data") &&
+            inherits(params, "CVST.params") && inherits(setup, "CVST.setup") &&
+            (is.null(test) || inherits(test, "CVST.data")))
   isClassificationTask = isClassification(train)
   regressionSimilarityViaOutliers = setup$regressionSimilarityViaOutliers
   earlyStopping = setup$earlyStoppingSignificance

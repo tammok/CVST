@@ -56,7 +56,7 @@ constructSVRLearner()
   Alexandros Karatzoglou, Alexandros Smola, Kurt Hornik, Achim Zeileis.
   kernlab - An S4 Package for Kernel Methods in R
   \emph{Journal of Statistical Software} Vol. 11, Issue 9, Nov 2004.
-  URL: \url{http://www.jstatsoft.org/v11/i09}.
+  DOI: \doi{10.18637/jss.v011.i09}.
   
   Volker Roth.
   Probabilistic discriminative kernel classifiers for multi-class problems.

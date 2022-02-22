@@ -31,7 +31,7 @@ noisySinc(n, dim = 2, sigma = 0.1)
 Tammo Krueger, Danny Panknin, and Mikio Braun.
 Fast cross-validation via sequential testing.
 Journal of Machine Learning Research 16 (2015) 1103-1155.
-URL \url{http://jmlr.org/papers/volume16/krueger15a/krueger15a.pdf}.
+URL \url{https://jmlr.org/papers/volume16/krueger15a/krueger15a.pdf}.
 }
 \author{
 Tammo Krueger <tammokrueger@googlemail.com>

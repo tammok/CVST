@@ -100,7 +100,7 @@ constructKRRLearner = function() {
     e = (labels - pi) / diagW
     q = Kalpha + e
     theSol = try(solve(K + lambda * Diagonal(x=1/diagW), q))
-    if (class(theSol) == "try-error") {
+    if (inherits(theSol, "try-error")) {
       break
     }
     alphan = as.vector(theSol)

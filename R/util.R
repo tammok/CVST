@@ -10,7 +10,7 @@ constructData = function(x, y) {
 }
 
 getN = function(data) {
-  stopifnot(class(data) == "CVST.data")
+  stopifnot(inherits(data, "CVST.data"))
   if (is.list(data$x) || is.vector(data$x)) {
     N = length(data$x)
   }
@@ -21,13 +21,13 @@ getN = function(data) {
 }
 
 shuffleData = function(data) {
-  stopifnot(class(data) == "CVST.data")
+  stopifnot(inherits(data, "CVST.data"))
   shuffle = sample.int(getN(data))
   return(getSubset(data, shuffle))
 }
 
 getSubset = function(data, subset) {
-  stopifnot(class(data) == "CVST.data")
+  stopifnot(inherits(data, "CVST.data"))
   x = getX(data, subset)
   y = data$y[subset]
   ret = constructData(x=x, y=y)
@@ -35,7 +35,7 @@ getSubset = function(data, subset) {
 }
 
 getX = function(data, subset=NULL) {
-  stopifnot(class(data) == "CVST.data")
+  stopifnot(inherits(data, "CVST.data"))
   if (is.null(subset)) {
     ret = data$x
   }
@@ -51,12 +51,12 @@ getX = function(data, subset=NULL) {
 }
 
 isClassification = function(data) {
-  stopifnot(class(data) == "CVST.data")
+  stopifnot(inherits(data, "CVST.data"))
   return(is.factor(data$y))
 }
 
 isRegression = function(data) {
-  stopifnot(class(data) == "CVST.data")
+  stopifnot(inherits(data, "CVST.data"))
   return(!isClassification(data))
 }
 
@@ -91,14 +91,14 @@ constructParams = function(...) {
 
 
 .getResult = function(train, test, learner, param, squared=TRUE) {
-  stopifnot(class(learner) == "CVST.learner" && class(train) == "CVST.data" && class(test) == "CVST.data")
+  stopifnot(inherits(learner, "CVST.learner") && inherits(train, "CVST.data") && inherits(test, "CVST.data"))
   model = try(learner$learn(train, param))
-  if (class(model) == "try-error") {
+  if (inherits(model, "try-error")) {
     pred = rep(NA, length(test$y))
   }
   else {
     pred = try(learner$predict(model, test))
-    if (class(pred) == "try-error") {
+    if (inherits(pred, "try-error")) {
       pred = rep(NA, length(test$y))
     }
   }
@@ -222,7 +222,7 @@ plotSequence = function(st, s) {
 
 
 testSequence = function(st, s) {
-  stopifnot(class(st) == "CVST.sequentialTest")  
+  stopifnot(inherits(st, "CVST.sequentialTest"))  
   n = length(s)
   y = cumsum(s)
   ret = 0
